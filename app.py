@@ -1,28 +1,27 @@
+from flask import Flask, render_template, request
 
-@app.route("/") #@ sign before function is decorater/ it tells you what route you are going to add to the root url
-def index():
-    return render_template("index.html")
+from exam_p1 import find_positive_words_same_value, create_list_from_file, value_of_name
 
+from exam_p2 import highest_year
 
-@app.route("/hello/")
-@app.route("/hello/<name>")
-def hello(name=None):
-    if name:
-        name = name.upper()
-    return render_template("hello.html", name=name)
+app = Flask(__name__)
 
-
-@app.route("/calc/", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def calculate():
     if request.method == "POST":
-        a = request.form["a"]
-        
-        # root_1, root_2 = quadratic(a, b, c)
-        result = []
-        if result:
+        name = request.form["name"]
+        gender = request.form['gender']
+        name_value = value_of_name(name.lower())
+        positive_words = create_list_from_file('positive-words.txt')
+        word_list = find_positive_words_same_value(name.lower(), positive_words)
+
+        year = highest_year(name, gender)
+        print(year)
+
+        if word_list:
             return render_template(
-                "calculator_result.html", a=a, result = result
+                "result.html", name=name, word_list=word_list, year=year, name_value=name_value
             )
         else:
-            return render_template("calculator_form.html", error=True)
-    return render_template("calculator_form.html", error=None)
+            return render_template("index.html", error=True)
+    return render_template("index.html", error=None)

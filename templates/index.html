@@ -2,22 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Calculator</title>
+    <title>Name</title>
   </head>
   <body>
-    <h1>Calculator</h1>
+    <h1>Name</h1>
     <form method="POST" name="calculator">
       {% if error %}
       <p style="color:red">This equation does not have real number solution.</p>
       {% endif %}
       <p>
-        Please enter three coefficients of a quadratic function:
+        Please enter name and gender:
       </p>
-      <p>
-        <input type="text" size="4" name="a" />x<sup>2</sup> +
-        <input type="text" size="4" name="b" />x +
-        <input type="text" size="4" name="c" /> = 0
+      <p>name:
+        <input type="text" size="10" name="name" />
       </p>
+
+      <p>gender (M or F):
+        <input type="text" size="10" name="gender" />
+      </p>
+      
       <p>
         <input type="submit" value="Magic Happens" />
       </p>
